@@ -1,0 +1,94 @@
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+def isReleaseBuild() {
+    return !version.contains("SNAPSHOT")
+}
+
+def sonatypeRepositoryUrl
+def nexusUsername
+def nexusPassword
+
+if (isReleaseBuild()) {
+    println 'RELEASE BUILD'
+    sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+} else {
+    println 'DEBUG BUILD'
+    sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+}
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment {
+                    deployment -> signing.signPom(deployment)
+                }
+
+                pom.packaging = "aar"
+
+                repository(url: sonatypeRepositoryUrl) {
+                    authentication(userName: System.properties['nexusUsername'], password: System.properties['nexusPassword'])
+                }
+
+                pom.project {
+                    name 'sdk'
+                    packaging 'aar'
+                    description 'Punch Through\'s SDK for speeding up development ' +
+                            'with the LightBlue Bean development platform'
+                    url 'https://github.com/PunchThrough/Bean-Android-SDK'
+
+                    scm {
+                        url "https://github.com/PunchThrough/Bean-Android-SDK"
+                        connection "https://github.com/PunchThrough/Bean-Android-SDK.git"
+                    }
+
+                    licenses {
+                        license {
+                            name "MIT"
+                            url "http://opensource.org/licenses/MIT"
+                            distribution "http://opensource.org/licenses/MIT"
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id "punchthrough"
+                            name "Punch Through Design"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    signing {
+        required {
+            isReleaseBuild()
+        }
+        sign configurations.archives
+    }
+
+    task androidJavadocs(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        failOnError = false
+        exclude '**/internal/**'
+    }
+
+    task androidJavadocsJar(type: Jar) {
+        classifier = 'javadoc'
+        from androidJavadocs.outputs
+    }
+
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.sourceFiles
+    }
+    // package both aar and jar
+    artifacts {
+        archives bundleRelease
+        archives androidSourcesJar
+        archives androidJavadocsJar
+    }
+}
