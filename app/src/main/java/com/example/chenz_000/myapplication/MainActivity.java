@@ -1,6 +1,7 @@
 package com.example.chenz_000.myapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -43,8 +44,24 @@ public class MainActivity extends AppCompatActivity {
                 intent.setType("message/rfc822");
 
                 startActivity(Intent.createChooser(intent, "Select Email app"));
-
             }
         });
+
+
+        Button b = (Button)this.findViewById(R.id.makethecall);
+
+        b.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:999123"));
+                startActivity(callIntent);
+            }
+        });
+
+
     }
+
+
 }
