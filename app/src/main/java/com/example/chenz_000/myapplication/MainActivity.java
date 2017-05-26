@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG, "Running sketch " + result);
                     if (result.toString().contains("Tremor!")) {
                         message = result.toString();
+                        Log.d(TAG, message);
                     }
                 }
             });
