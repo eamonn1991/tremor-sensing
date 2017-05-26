@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 //            System.out.println(mBean.getDevice().getName());
 //            System.out.println(mBean.getDevice().getAddress());
 
-            Toast.makeText(getApplicationContext(), numbre+" Beans Found", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), numbre+" Beans Found", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -176,27 +176,23 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onConnected() {
 
-            Toast.makeText(getApplicationContext(), "CONNECTED TO BEAN", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "CONNECTED TO BEAN", Toast.LENGTH_LONG).show();
 
 
-            mBean.readDeviceInfo(new Callback<DeviceInfo>() {
-                @Override
-                public void onResult(DeviceInfo deviceInfo) {
-                    Log.d(TAG, deviceInfo.hardwareVersion());
-                    Log.d(TAG, deviceInfo.firmwareVersion());
-                    Log.d(TAG, deviceInfo.softwareVersion());
-                }
-            });
+//            mBean.readDeviceInfo(new Callback<DeviceInfo>() {
+//                @Override
+//                public void onResult(DeviceInfo deviceInfo) {
+//                    Log.d(TAG, deviceInfo.hardwareVersion());
+//                    Log.d(TAG, deviceInfo.firmwareVersion());
+//                    Log.d(TAG, deviceInfo.softwareVersion());
+//                }
+//            });
 
             // reading things takes a callback:
             mBean.readSketchMetadata(new Callback<SketchMetadata>() {
                 @Override
                 public void onResult(SketchMetadata result) {
                     Log.i(TAG, "Running sketch " + result);
-                    if (result.toString().contains("Tremor!")) {
-                        message = result.toString();
-                        Log.d(TAG, message);
-                    }
                 }
             });
 
@@ -222,8 +218,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onSerialMessageReceived(byte[] bytes) {
-            Toast.makeText(getApplicationContext(), "Byte - " + new String(bytes), Toast.LENGTH_LONG).show();
-            Log.i(TAG, "Serial received: " + new String(bytes));
+            message = new String(bytes);
+//            Toast.makeText(getApplicationContext(), "Byte - " + message, Toast.LENGTH_SHORT).show();
+//            Log.i(TAG, "Serial received: " + message);
+
+            if (message.contains("Tremor!")) {
+                //Message is the email that we want to send. 
+                Log.d(TAG, "message" + message);
+            }
         }
 
         @Override
