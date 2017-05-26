@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button b_send;
 
-    String message = et_message.getText().toString();
+    String message;
 
 
     /*
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String to = et_email.getText().toString();
                 String subject = et_subject.getText().toString();
-//                String message = et_message.getText().toString();
+//                message = et_message.getText().toString();
 
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
