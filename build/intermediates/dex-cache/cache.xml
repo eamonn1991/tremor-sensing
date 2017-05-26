@@ -3,21 +3,30 @@
 
     <item
         is-multidex="true"
-        jar="/Users/rosaliechan/GitHub/tremor-sensing/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="6ba6547a012c07dfeed1960cfced12ffbd517e28">
-        <dex dex="/Users/rosaliechan/GitHub/tremor-sensing/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_98462cb91c81777e3c1b000941f3a94e1f1f0a2e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/rosaliechan/GitHub/tremor-sensing/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
         sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
         <dex dex="/Users/rosaliechan/GitHub/tremor-sensing/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_e5b2c97ac8364083520073ea4d3463f944ba130a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/rosaliechan/GitHub/tremor-sensing/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ade70d3b7a08e74acb76829805855e1652c96e1f">
+        <dex dex="/Users/rosaliechan/GitHub/tremor-sensing/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_98462cb91c81777e3c1b000941f3a94e1f1f0a2e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/commons-io/commons-io/2.4/commons-io-2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad">
+        <dex dex="/Users/rosaliechan/GitHub/tremor-sensing/app/build/intermediates/transforms/dex/debug/folders/1000/10/commons-io-2.4_db9d9c7f5dc9abc44c05f9a56b43532b2a4af315/classes.dex" />
     </item>
 
 </items>
