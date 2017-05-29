@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
 //            Log.i(TAG, "Serial received: " + message);
 
             if (message.contains("Tremor!")) {
-                //Message is the email that we want to send. 
+                //Message is the email that we want to send.
                 Log.d(TAG, "message" + message);
             }
         }
