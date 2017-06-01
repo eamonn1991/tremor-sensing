@@ -108,7 +108,8 @@ public class MainActivity extends AppCompatActivity {
     Button b_send;
 
     String message, time, duration, accel;
-
+    int autosend = 1;
+    int x = 0;
 
     /*
      code from: http://stackoverflow.com/questions/26854480/android-app-bluetooth-lightblue-bean
@@ -219,9 +220,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSerialMessageReceived(byte[] bytes) {
             message = new String(bytes);
-            time = message.substring(0, 72);
-            duration = message.substring(72, 85);
-            accel = message.substring(85, message.length() - 1);
+            x=1;
+            time = message.substring(0, message.length() - 1);
+            duration = message.substring(0, message.length() - 1);
+            accel = message.substring(0, message.length() - 1);
+//            duration = message.substring(72, 85);
+//            accel = message.substring(85, message.length() - 1);
 
 
 //            Toast.makeText(getApplicationContext(), "Byte - " + message, Toast.LENGTH_SHORT).show();
@@ -240,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
 
     private void cancelBeanDiscovery(){
         BeanManager.getInstance().cancelDiscovery();
@@ -280,8 +285,13 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_TEXT, message);
 
                 intent.setType("message/rfc822");
-
-                startActivity(Intent.createChooser(intent, "Select Email app"));
+                while (autosend == 1) {
+                    if (x == 1) {
+                        startActivity(Intent.createChooser(intent, "Select Email app"));
+                        autosend = 0;
+                        x = 0;
+                    }
+                }
             }
         });
 
@@ -294,21 +304,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:999123"));
-                startActivity(callIntent);
+//                while (autosend == 1) {
+//                    if (x == 1) {
+//                startActivity(callIntent);
+//                        autosend = 0;
+//                        x = 0;
+//                    }
+//                }
             }
         });
 
         String acc_message = "102";
         TextView acc_output = (TextView) findViewById(R.id.acc_result);
-        acc_output.setText("Acceleration" + accel);
+        acc_output.setText("Acceleration " + accel);
 
         String dur_message = "110";
         TextView dur_output = (TextView) findViewById(R.id.dur_result);
-        dur_output.setText("Duration" + duration);
+        dur_output.setText("Duration " + duration);
 
         String time_message = "10:21pm";
         TextView time_output = (TextView) findViewById(R.id.time_result);
-        time_output.setText("Time" + time);
+        time_output.setText("Time " + time);
 
 
     }
