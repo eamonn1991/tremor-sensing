@@ -49,8 +49,10 @@ void loop() {
 
       duration = 60 * (minute(t2) - minute(t1) - 1) + second(t2) + (60 - second(t1));
 //      Serial.println(duration);
+
+      String result = "\n Time started: " + String(timenow1) + "\n Time ended: " + String(timenow2) + "\n Duration: " + String(duration) + "\n Acceleration: " + String(acc);
         
-      Serial.println("\n Time started: " + timenow1 + "\n Time ended: " + timenow2 + "\n Duration: " + duration + "\n Acceleration: " + acc);
+      Serial.println(result);
 //      Serial.println(" Time ended: " + timenow2);    
 //      Serial.println(" Duration: " + duration);
 //      Serial.println(" Acceleration: " + acc);

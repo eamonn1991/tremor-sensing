@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button b_send;
 
-    String message;
+    String message, time, duration, accel;
 
 
     /*
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onConnected() {
 
-//            Toast.makeText(getApplicationContext(), "CONNECTED TO BEAN", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "CONNECTED TO BEAN", Toast.LENGTH_LONG).show();
 
 
 //            mBean.readDeviceInfo(new Callback<DeviceInfo>() {
@@ -219,13 +219,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSerialMessageReceived(byte[] bytes) {
             message = new String(bytes);
+            time = message.substring(0, 72);
+            duration = message.substring(72, 85);
+            accel = message.substring(85, message.length() - 1);
+
+
 //            Toast.makeText(getApplicationContext(), "Byte - " + message, Toast.LENGTH_SHORT).show();
 //            Log.i(TAG, "Serial received: " + message);
 
-            if (message.contains("Tremor!")) {
+//            if (message.contains("Tremor!")) {
                 //Message is the email that we want to send.
-                Log.d(TAG, "message" + message);
-            }
+            Log.d(TAG, time);
+            Log.d(TAG, duration);
+            Log.d(TAG, accel);
+//            }
         }
 
         @Override
