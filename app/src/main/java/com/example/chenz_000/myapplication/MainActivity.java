@@ -298,6 +298,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        String acc_message = "102";
+        TextView acc_output = (TextView) findViewById(R.id.acc_result);
+        acc_output.setText("Acceleration" + accel);
+
+        String dur_message = "110";
+        TextView dur_output = (TextView) findViewById(R.id.dur_result);
+        dur_output.setText("Duration" + duration);
+
+        String time_message = "10:21pm";
+        TextView time_output = (TextView) findViewById(R.id.time_result);
+        time_output.setText("Time" + time);
+
 
     }
 
