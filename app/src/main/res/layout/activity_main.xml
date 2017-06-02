@@ -12,23 +12,25 @@
         android:id="@+id/time_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="14dp"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="@+id/dur_result"
         app:layout_constraintRight_toRightOf="@+id/dur_result"
-        app:layout_constraintTop_toBottomOf="@+id/dur_result" />
+        app:layout_constraintTop_toBottomOf="@+id/dur_result"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:id="@+id/dur_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="@+id/acc_result"
         app:layout_constraintRight_toRightOf="@+id/acc_result"
-        app:layout_constraintTop_toBottomOf="@+id/acc_result" />
+        app:layout_constraintTop_toBottomOf="@+id/acc_result"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <EditText
         android:id="@+id/et_email"
@@ -75,24 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SEND EMAIL"
-        app:layout_constraintRight_toRightOf="@+id/makethecall"
-        android:layout_marginTop="19dp"
-        app:layout_constraintTop_toBottomOf="@+id/makethecall"
-        app:layout_constraintLeft_toLeftOf="@+id/makethecall" />
-
-    <Button
-        android:id="@+id/makethecall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tremor Call"
-        app:layout_constraintLeft_toLeftOf="@+id/acc_result"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.366"
-        app:layout_constraintRight_toRightOf="@+id/acc_result"
-        app:layout_constraintHorizontal_bias="0.485" />
+        tools:layout_editor_absoluteY="239dp"
+        tools:layout_editor_absoluteX="141dp" />
 
     <TextView
         android:id="@+id/acc_result"
@@ -105,7 +91,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="62dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 

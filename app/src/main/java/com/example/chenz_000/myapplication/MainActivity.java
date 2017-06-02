@@ -121,53 +121,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onBeanDiscovered(Bean bean, int i) {
             mBean = bean;
-//            beans.add(bean);
-//            mBean = beans.get(0);
             mBean.connect(getApplicationContext(), myBeanListener);
-//            Log.d(TAG, beans);
-
-//            mBean = bean;
-
-//            BeanManager.getInstance().cancelDiscovery();
-//            Toast.makeText(getApplicationContext(), "Bean discovered - "+this, Toast.LENGTH_LONG).show();
-//
-//            // some information for the log
-//            Log.i(TAG,  "Bean discovered - name: "+ bean.getDevice().getName());
-//            Log.i(TAG,  "Bean discovered - address: "+ bean.getDevice().getAddress());
-//            Log.i(TAG,  "Bean discovered - BT class: "+ bean.getDevice().getBluetoothClass().toString());
-
-            /*
-             this is the connected fun
-             */
-//            mBean.connect(getApplicationContext(), myBeanListener);
-
-//            Log.i(TAG, "Starting connection");
         }
 
 
 
         @Override
         public void onDiscoveryComplete() {
-//            String listString = "";
-//            for (Bean bean : beans) {
-//                String beanname = bean.getDevice().getName();
-////                Toast.makeText(getApplicationContext(), beanname, Toast.LENGTH_LONG).show();   // "Bean"              (example)
-////                Log.d(TAG, bean.getDevice().getAddress());    // "B4:99:4C:1E:BC:75" (example)
-////                Log.d(TAG, beanname);
-//                mBean = bean;
-//                listString += bean + "\t";
-//                break;
-//            }
-
-            int numbre = BeanManager.getInstance().getBeans().size();
-//            Collection<Bean> beans = BeanManager.getInstance().getBeans();
-//            int numbre = beans.size();
-//            Log.d(TAG, listString);
-
-//            System.out.println(mBean.getDevice().getName());
-//            System.out.println(mBean.getDevice().getAddress());
-
-//            Toast.makeText(getApplicationContext(), numbre+" Beans Found", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -178,16 +138,6 @@ public class MainActivity extends AppCompatActivity {
         public void onConnected() {
 
             Toast.makeText(getApplicationContext(), "CONNECTED TO BEAN", Toast.LENGTH_LONG).show();
-
-
-//            mBean.readDeviceInfo(new Callback<DeviceInfo>() {
-//                @Override
-//                public void onResult(DeviceInfo deviceInfo) {
-//                    Log.d(TAG, deviceInfo.hardwareVersion());
-//                    Log.d(TAG, deviceInfo.firmwareVersion());
-//                    Log.d(TAG, deviceInfo.softwareVersion());
-//                }
-//            });
 
             // reading things takes a callback:
             mBean.readSketchMetadata(new Callback<SketchMetadata>() {
@@ -221,21 +171,7 @@ public class MainActivity extends AppCompatActivity {
         public void onSerialMessageReceived(byte[] bytes) {
             message = new String(bytes);
             x=1;
-            time = message.substring(0, message.length() - 1);
-            duration = message.substring(0, message.length() - 1);
-            accel = message.substring(0, message.length() - 1);
-//            duration = message.substring(72, 85);
-//            accel = message.substring(85, message.length() - 1);
 
-
-//            Toast.makeText(getApplicationContext(), "Byte - " + message, Toast.LENGTH_SHORT).show();
-//            Log.i(TAG, "Serial received: " + message);
-
-//            if (message.contains("Tremor!")) {
-                //Message is the email that we want to send.
-            Log.d(TAG, time);
-            Log.d(TAG, duration);
-            Log.d(TAG, accel);
 //            }
         }
 
@@ -262,9 +198,6 @@ public class MainActivity extends AppCompatActivity {
         BeanManager.getInstance().setScanTimeout(10);
         BeanManager.getInstance().startDiscovery(blistener);
 
-
-//        mBean.connect(this, myBeanListener);
-
         et_email = (EditText) findViewById(R.id.et_email);
         et_subject = (EditText) findViewById(R.id.et_subject);
         et_message = (EditText) findViewById(R.id.et_message);
@@ -272,59 +205,66 @@ public class MainActivity extends AppCompatActivity {
         b_send = (Button) findViewById(R.id.b_send);
 
 
+
         b_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String to = et_email.getText().toString();
                 String subject = et_subject.getText().toString();
-//                message = et_message.getText().toString();
-
+                String customMessage = et_message.getText().toString();
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
                 intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                intent.putExtra(Intent.EXTRA_TEXT, message);
+                intent.putExtra(Intent.EXTRA_TEXT, customMessage + "\n" + message);
 
                 intent.setType("message/rfc822");
+
+
+                startActivity(Intent.createChooser(intent, "Select Email app"));
+
                 while (autosend == 1) {
                     if (x == 1) {
-                        startActivity(Intent.createChooser(intent, "Select Email app"));
+                        Intent autointent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:rosaliechan2017@u.northwestern.edu"));
+                        autointent.putExtra(Intent.EXTRA_SUBJECT, "Tremor alert");
+                        autointent.putExtra(Intent.EXTRA_TEXT, message);
+//                        intent.setType("message/rfc822");
+                        startActivity(autointent);
+
                         autosend = 0;
                         x = 0;
                     }
                 }
+
             }
         });
 
 
-        Button b = (Button)this.findViewById(R.id.makethecall);
+//        time = message.substring(0, message.length() - 1);
+//        duration = message.substring(0, message.length() - 1);
+//        accel = message.substring(0, message.length() - 1);
+//            duration = message.substring(72, 85);
+//            accel = message.substring(85, message.length() - 1);
 
-        b.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:999123"));
-//                while (autosend == 1) {
-//                    if (x == 1) {
-//                startActivity(callIntent);
-//                        autosend = 0;
-//                        x = 0;
-//                    }
-//                }
-            }
-        });
+//            Toast.makeText(getApplicationContext(), "Byte - " + message, Toast.LENGTH_SHORT).show();
+//            Log.i(TAG, "Serial received: " + message);
+
+        //Message is the email that we want to send.
+//        Log.d(TAG, time);
+//        Log.d(TAG, duration);
+//        Log.d(TAG, accel);
 
         String acc_message = "102";
         TextView acc_output = (TextView) findViewById(R.id.acc_result);
-        acc_output.setText("Acceleration " + accel);
+        acc_output.setText("Acceleration: " + acc_message);
 
         String dur_message = "110";
         TextView dur_output = (TextView) findViewById(R.id.dur_result);
-        dur_output.setText("Duration " + duration);
+        dur_output.setText("Duration: " + dur_message);
 
         String time_message = "10:21pm";
         TextView time_output = (TextView) findViewById(R.id.time_result);
-        time_output.setText("Time " + time);
+        time_output.setText("Time: " + time_message);
 
 
     }
