@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST_BLUETOOTH = 0;
 
     private void showAccessPermission() {
+
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.BLUETOOTH)
@@ -159,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onConnectionFailed() {
-            Toast.makeText(getApplicationContext(), "CONNECTED FAILED", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "CONNECTION FAILED", Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -171,8 +172,33 @@ public class MainActivity extends AppCompatActivity {
         public void onSerialMessageReceived(byte[] bytes) {
             message = new String(bytes);
             x=1;
+            autosend=1;
 
-//            }
+            if (message.length() > 1) {
+
+                Log.d(TAG, String.valueOf(autosend));
+
+            String acc_message = "102";
+            TextView acc_output = (TextView) findViewById(R.id.acc_result);
+            acc_output.setText(message);
+
+                while (autosend == 1) {
+                    if (x == 1) {
+                        Intent autointent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:rosaliechan2017@u.northwestern.edu"));
+                        autointent.putExtra(Intent.EXTRA_SUBJECT, "Tremor alert");
+                        autointent.putExtra(Intent.EXTRA_TEXT, "Hello, this is to alert you that your patient had a tremor today. You can view the tremor data below." + "\n" + message);
+//                        intent.setType("message/rfc822");
+                        startActivity(autointent);
+
+                        autosend = 0;
+                        x = 0;
+                    }
+                }
+
+            }
+
+
+
         }
 
         @Override
@@ -222,49 +248,11 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(Intent.createChooser(intent, "Select Email app"));
 
-                while (autosend == 1) {
-                    if (x == 1) {
-                        Intent autointent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:rosaliechan2017@u.northwestern.edu"));
-                        autointent.putExtra(Intent.EXTRA_SUBJECT, "Tremor alert");
-                        autointent.putExtra(Intent.EXTRA_TEXT, message);
-//                        intent.setType("message/rfc822");
-                        startActivity(autointent);
-
-                        autosend = 0;
-                        x = 0;
-                    }
-                }
 
             }
         });
 
 
-//        time = message.substring(0, message.length() - 1);
-//        duration = message.substring(0, message.length() - 1);
-//        accel = message.substring(0, message.length() - 1);
-//            duration = message.substring(72, 85);
-//            accel = message.substring(85, message.length() - 1);
-
-
-//            Toast.makeText(getApplicationContext(), "Byte - " + message, Toast.LENGTH_SHORT).show();
-//            Log.i(TAG, "Serial received: " + message);
-
-        //Message is the email that we want to send.
-//        Log.d(TAG, time);
-//        Log.d(TAG, duration);
-//        Log.d(TAG, accel);
-
-        String acc_message = "102";
-        TextView acc_output = (TextView) findViewById(R.id.acc_result);
-        acc_output.setText("Acceleration: " + acc_message);
-
-        String dur_message = "110";
-        TextView dur_output = (TextView) findViewById(R.id.dur_result);
-        dur_output.setText("Duration: " + dur_message);
-
-        String time_message = "10:21pm";
-        TextView time_output = (TextView) findViewById(R.id.time_result);
-        time_output.setText("Time: " + time_message);
 
 
     }
