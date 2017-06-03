@@ -27,9 +27,9 @@ void loop() {
 
   
   AccelerationReading acceleration = Bean.getAcceleration();
-//  Serial.println(String((abs(acceleration.xAxis) + abs(acceleration.yAxis) + abs(acceleration.zAxis) ) / 3));
+  
 
-   if ((abs(acceleration.xAxis) + abs(acceleration.yAxis) + abs(acceleration.zAxis) ) / 3 > 350) {
+   if ((abs(acceleration.xAxis) + abs(acceleration.yAxis) + abs(acceleration.zAxis) ) / 3 > 250) {
 //    Serial.println("tremoring");
     if(tremoring == 0){
     t1 = now();
@@ -46,8 +46,8 @@ void loop() {
 //      acceleration = Bean.getAcceleration();
 //      Serial.println(String(abs(acceleration.xAxis)) + String(abs(acceleration.yAxis)) + String(abs(acceleration.zAxis)));
 //      }
-      
-      else{
+//      else{
+      if ((abs(acceleration.xAxis) + abs(acceleration.yAxis) + abs(acceleration.zAxis) ) / 3 < 200){
 //        Serial.println("tremor stopped" + String(tremoring));
 
         if (tremoring == 1){
@@ -71,7 +71,3 @@ void loop() {
     }
  
 //  Bean.sleep(1000);
-
-
-
-
