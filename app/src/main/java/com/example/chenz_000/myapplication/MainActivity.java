@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         public void onSerialMessageReceived(byte[] bytes) {
             message = new String(bytes);
             x=1;
-            autosend=1;
+            autosend+=1;
 
             if (message.length() > 1) {
 
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             TextView acc_output = (TextView) findViewById(R.id.acc_result);
             acc_output.setText(message);
 
-                while (autosend == 1) {
+                while (autosend > 50) {
                     if (x == 1) {
                         Intent autointent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:rosaliechan2017@u.northwestern.edu"));
                         autointent.putExtra(Intent.EXTRA_SUBJECT, "Tremor alert");
